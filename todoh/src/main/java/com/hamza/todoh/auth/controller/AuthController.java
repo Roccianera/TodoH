@@ -28,13 +28,21 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authService.register(request));
+        System.out.println("register bug ");
+        var res= ResponseEntity.ok(authService.register(request));
+
+        System.out.println("register bug 3 ");
+
+        return res;
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
+
+
+
 
 
 

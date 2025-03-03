@@ -54,9 +54,10 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest   request) {
-        
+
+        System.out.println("register bug2");
         if(userRepository.existsByUsername(request.getUsername())){
-            throw new RuntimeException("Username alrefy taken ");
+            throw new RuntimeException("Username already taken ");
         }
 
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -71,13 +72,17 @@ public class AuthService {
 
         userRepository.save(user);
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), user.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        System.out.println("register bug4");
+
 
         UserDetails userDetails =(UserDetails) authentication.getPrincipal();
         String jwt = jwtTokenProvider.generateToken(userDetails);
-        return new AuthResponse(jwt, user.getUsername());
+        System.out.println("register bug5");
+
+        return new AuthResponse(jwt, request.getUsername());
 
     }
 
