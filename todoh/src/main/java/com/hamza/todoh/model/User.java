@@ -3,6 +3,7 @@ package com.hamza.todoh.model;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -23,11 +24,19 @@ public class User {
     @Id
     @GeneratedValue
     Integer id_user;
-    String email;
-    String password;
 
-    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL,orphanRemoval = true)
+
+    @Column(unique = true,nullable = false)
+    String email;
+    @Column(nullable = false)
+    String password;
+    @Column(unique = true,nullable = false)
+    String username;
+
+
+  /*    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Task> tasks;
+*/
 
 
 

@@ -33,7 +33,7 @@ public class TaskMapperDto {
     public TaskResponseDto mapToTaskResponseDto(Task task) {
      
         
-        Set<String> tags = task.getTags().stream().map(Tag::getName).collect(Collectors.toSet());
+       // Set<String> tags = task.getTags().stream().map(Tag::getName).collect(Collectors.toSet());
 
 
       return   new TaskResponseDto(
@@ -42,7 +42,7 @@ public class TaskMapperDto {
             task.getDescription(),
             task.getDeadlineTime(),
             task.getCreationTime(),
-            tags
+           null
         );
 
 

@@ -35,12 +35,15 @@ public class Task {
     LocalDateTime deadlineTime;
     LocalDateTime creationTime;
 
-
+    /* 
     @ManyToOne
     @JoinColumn(name ="user_id",nullable = false)
     private User user;
 
-
+    
     @ManyToMany(mappedBy = "tasks")
     private Set<Tag> tags;
+
+
+    */
 }
