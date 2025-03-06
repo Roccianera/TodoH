@@ -55,7 +55,6 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest   request) {
 
-        System.out.println("register bug2");
         if(userRepository.existsByUsername(request.getUsername())){
             throw new RuntimeException("Username already taken ");
         }
@@ -75,12 +74,10 @@ public class AuthService {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        System.out.println("register bug4");
 
 
         UserDetails userDetails =(UserDetails) authentication.getPrincipal();
         String jwt = jwtTokenProvider.generateToken(userDetails);
-        System.out.println("register bug5");
 
         return new AuthResponse(jwt, request.getUsername());
 

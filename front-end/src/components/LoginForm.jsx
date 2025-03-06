@@ -10,7 +10,10 @@ const handleLogin = () => {
 
     Login(email, password)
         .then((response) => {
-            console.log(response.token);
+            localStorage.setItem('user', response.username);
+            localStorage.setItem('token', response.token);
+
+            console.log('User logged in successfully');
 
         })
         .catch((error) => {
