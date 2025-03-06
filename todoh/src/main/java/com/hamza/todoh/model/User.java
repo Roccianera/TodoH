@@ -34,9 +34,9 @@ public class User {
     String username;
 
 
-  /*    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Task> tasks;
-*/
+
 
 
 

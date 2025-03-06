@@ -1,14 +1,10 @@
 package com.hamza.todoh.service;
 
 import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
 
 import com.hamza.todoh.dto.TaskRequestDto;
 import com.hamza.todoh.dto.TaskResponseDto;
-import com.hamza.todoh.model.Tag;
 import com.hamza.todoh.model.Task;
 
 @Service
