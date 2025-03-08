@@ -1,17 +1,19 @@
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 
+import { Box } from '@mui/material';
 
 
 
 function Register() {
 
     return (
-        <div>
-            <div className="login-form-container">
-                <RegisterForm></RegisterForm>
-            </div>
-        </div>
+
+        <Box justifyContent={"center"} alignContent={"center"} >
+            <RegisterForm></RegisterForm>
+
+        </Box>
+        
     );
 
 

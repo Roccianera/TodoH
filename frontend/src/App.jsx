@@ -18,7 +18,7 @@ function App() {
   return (
     <>
     
-    <Box  sx={ { backgroundColor:"lightgray", minHeight: '100vh'}}>
+    <Box  sx={ { backgroundColor:"pink", minHeight: '100vh'}}>
       
     <BrowserRouter>
       <Routes>

@@ -109,6 +109,16 @@ public class TaskService {
     public TaskResponseDto updateTask(Integer id, TaskRequestDto dto) {
         var task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
 
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String username = authentication.getName();
+
+        if(!task.getUser().getUsername().equals(username)){
+            throw  new RuntimeException("Aint yours");
+        }
+
+
         if(dto.title() != null){
             task.setTitle(dto.title());
         }
