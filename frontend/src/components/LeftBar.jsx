@@ -11,11 +11,9 @@ function LeftBar() {
   return (
     <>
       {!open && (
-        <Box backgroundColor={"gray"} height={100}>
           <Button variant="outlined" color='black' onClick={() => setOpen(!open)}>
             <KeyboardDoubleArrowRight />
           </Button>
-        </Box>
       )}
 
       {open && (

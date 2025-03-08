@@ -83,7 +83,6 @@ public class JwtTokenProvider {
 
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
-        System.out.println("bug4");
         return claimsResolver.apply(claims);
     }
 

@@ -22,7 +22,7 @@ public class TaskMapperDto {
         task.setDeadlineTime(taskDto.deadlineTime());
         task.setCreationTime(LocalDateTime.now());
         return task;
-    
+
     }
     
 
@@ -37,8 +37,7 @@ public class TaskMapperDto {
             task.getTitle(),
             task.getDescription(),
             task.getDeadlineTime(),
-            task.getCreationTime(),
-           null
+            task.getCreationTime()
         );
 
 

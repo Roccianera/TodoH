@@ -28,33 +28,55 @@ public class TaskController {
 
 
 
+
+
+   
+
     @GetMapping("/")
-    public ResponseEntity<?> getTasks(){
-        return ResponseEntity.ok(taskService.getTasks());
+    public ResponseEntity<?> getTasks() {
+        try {
+            return ResponseEntity.ok(taskService.getTasks());
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error fetching tasks: " + e.getMessage());
+        }
     }
 
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTask(@PathVariable Integer id){
-        return ResponseEntity.ok(taskService.delete(id));
+    public ResponseEntity<?> deleteTask(@PathVariable Integer id) {
+        try {
+            return ResponseEntity.ok(taskService.delete(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error deleting task: " + e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getTask(@PathVariable Integer id){
-        return ResponseEntity.ok(taskService.getTask(id));
+    public ResponseEntity<?> getTask(@PathVariable Integer id) {
+        try {
+            return ResponseEntity.ok(taskService.getTask(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error fetching task: " + e.getMessage());
+        }
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> addTask(@RequestBody TaskRequestDto taskDto){
-        return ResponseEntity.ok(taskService.addTask(taskDto));
+    public ResponseEntity<?> addTask(@RequestBody TaskRequestDto taskDto) {
+        try {
+            return ResponseEntity.ok(taskService.addTask(taskDto));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error adding task: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateTask(@PathVariable Integer id , @RequestBody TaskRequestDto taskDto){
-        return ResponseEntity.ok(taskService.updateTask(id, taskDto));
+    public ResponseEntity<?> updateTask(@PathVariable Integer id, @RequestBody TaskRequestDto taskDto) {
+        try {
+            return ResponseEntity.ok(taskService.updateTask(id, taskDto));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error updating task: " + e.getMessage());
+        }
     }
-
-
     
 
 
