@@ -32,6 +32,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+            System.out.println("Processing http request");
+
 
             try {
                 String jwt = getJwtFromRequest(request);
@@ -67,9 +69,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         logger.error("Impossibile impostare l'autenticazione utente", ex);
 
                 }
-                
+             
 
-                filterChain.doFilter(request, response);
+
+                try {
+                    filterChain.doFilter(request, response);
+                } catch (Exception ex) {
+                    logger.error("Error during filter chain execution", ex);
+                    throw ex; // Rethrow to ensure proper error handling upstream
+                }
             }
             
      private String getJwtFromRequest(HttpServletRequest request) {

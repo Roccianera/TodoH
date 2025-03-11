@@ -10,7 +10,8 @@ import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute'
-
+import NotFound from './pages/NotFound'
+import Footer from './Layout/Footer'
 
 
 function App() {
@@ -25,8 +26,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path='*' element={<h1>Not Found</h1>} />
+        <Route path="/dashboard" element={<Dashboard />}/>
+        <Route path='*' element={<NotFound/>} />
       </Routes>
     </BrowserRouter>
 

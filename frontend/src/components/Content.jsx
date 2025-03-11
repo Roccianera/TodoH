@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import LeftBar from './LeftBar'
 import RightBar from './RightBar'
 import TaskList from './TaskList'
+import NavBar from './NavBar'
 
 
 
@@ -26,21 +27,26 @@ const StyledBox = styled(Box)({
 
 
 function Content() {
+
+  const [task, setTask] = React.useState([])
   return (
+
+<>
+      <NavBar/>
 
       <StyledBox>
 
-        <Stack direction='row' sx={{ width: '100%' }}>
+        <Stack direction={{xs:"column",md:"row"}} sx={{ width: '100%' }} >
         <LeftBar/>
 
-        <TaskList>
+        <TaskList task={task} setTask={setTask}>
           
         </TaskList>
-          <RightBar/>
+          <RightBar task={task} setTask={setTask} />
         
 
         </Stack>
-      </StyledBox>
+      </StyledBox></>
   )
 }
 

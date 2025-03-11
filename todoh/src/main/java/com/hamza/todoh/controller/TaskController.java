@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hamza.todoh.dto.TaskRequestDto;
 import com.hamza.todoh.service.TaskService;
 
-import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -32,7 +31,7 @@ public class TaskController {
 
 
     @GetMapping("/me")
-    public ResponseEntity<?> getCurrentUser(HttpServletResponse response)
+    public ResponseEntity<?> getCurrentUser()
     {
         System.out.println("bug");
        try{

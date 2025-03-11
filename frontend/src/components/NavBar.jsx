@@ -97,9 +97,6 @@ function NavBar() {
         </Search>
        <Box flex={1} display="flex" justifyContent="flex-end" gap={2}>
        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-
-       <StyledButton  >Login</StyledButton>
-       <StyledButton  >Register</StyledButton>
        </Box>
 
        

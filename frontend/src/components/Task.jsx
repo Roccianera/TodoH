@@ -20,13 +20,13 @@ const StyledBox = styled(Box)({
   });
   
 
-function Task(props) {
+function Task({task, setTask, ...props}) {
   return (
     
         <StyledBox>
             <Radio></Radio>
-            <ListItem>
-            {props.task.title}
+            <ListItem onClick={() => setTask(task)}>
+            {task.title}
             </ListItem>
         </StyledBox>
 

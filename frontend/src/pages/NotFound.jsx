@@ -1,5 +1,5 @@
-
-
+import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
 
 
@@ -7,10 +7,10 @@
 function NotFound() {
 
     return (
-        <div>
-            <h1>404</h1>
-            <p>Page not found</p>
-        </div>
+        <Box sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh"}}>
+           <Typography variant="h1">404 Not Found</Typography>
+
+        </Box>
     )
 }
 
