@@ -38,10 +38,14 @@ public class SecurityConfig {
                 );
 
         // Aggiungi il filtro JWT prima del filtro di autenticazione
+        
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+       
 
         return http.build();
     }
+
+    
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

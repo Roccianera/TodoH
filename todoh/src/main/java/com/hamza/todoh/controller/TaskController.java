@@ -1,6 +1,8 @@
 package com.hamza.todoh.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hamza.todoh.dto.TaskRequestDto;
 import com.hamza.todoh.service.TaskService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -27,6 +31,24 @@ public class TaskController {
     }
 
 
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(HttpServletResponse response)
+    {
+        System.out.println("bug");
+       try{
+           Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+           String username = authentication.getName();
+
+           return  ResponseEntity.ok("User Authenticated " +username);
+
+       } catch (Exception e) {
+           return ResponseEntity.badRequest().body("User not authenticated " +e.getMessage());
+       }
+
+
+
+    }
 
 
 

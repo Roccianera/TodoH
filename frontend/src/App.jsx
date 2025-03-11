@@ -4,7 +4,7 @@ import NavBar from './components/NavBar'
 import LeftBar from './components/LeftBar'
 import Content from './components/Content'
 import RightBar from './components/RightBar'
-import Home from './pages/Home'
+import HomePage from './pages/HomePage'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
@@ -22,10 +22,11 @@ function App() {
       
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>
 
