@@ -3,7 +3,6 @@ package com.hamza.todoh.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.hamza.todoh.auth.service.CustomUserDetailsService;
 import com.hamza.todoh.model.User;
 import com.hamza.todoh.repository.UserRepository;
 import org.springframework.security.core.Authentication;
@@ -12,7 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.hamza.todoh.dto.TaskRequestDto;
 import com.hamza.todoh.dto.TaskResponseDto;
-import com.hamza.todoh.repository.TagRepository;
+import com.hamza.todoh.exception.TaskNotFoundException;
+import com.hamza.todoh.exception.UnauthorizedAccessException;
 import com.hamza.todoh.repository.TaskRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    private final TagRepository tagRepository;
+   //TODO private final TagRepository tagRepository;
 
     private final TaskMapperDto taskMapperDto;
 
@@ -35,7 +35,7 @@ public class TaskService {
 
     public TaskResponseDto delete(Integer id) {
         
-        var task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+        var task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException ("Task {"+id+"} not found"));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -43,7 +43,7 @@ public class TaskService {
 
 
         if(!task.getUser().getUsername().equals(username)) {
-            throw  new RuntimeException("Shit aint yours ");
+            throw  new UnauthorizedAccessException("Shit aint yours ");
         }
 
 
@@ -62,7 +62,7 @@ public class TaskService {
 
 
         if(!task.getUser().getUsername().equals(username)) {
-            throw  new RuntimeException("Shit aint yours ");
+            throw  new UnauthorizedAccessException("Shit aint yours ");
         }
 
 
@@ -107,7 +107,7 @@ public class TaskService {
 
 
     public TaskResponseDto updateTask(Integer id, TaskRequestDto dto) {
-        var task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+        var task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
 
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -115,7 +115,7 @@ public class TaskService {
         String username = authentication.getName();
 
         if(!task.getUser().getUsername().equals(username)){
-            throw  new RuntimeException("Aint yours");
+            throw  new UnauthorizedAccessException("Aint yours");
         }
 
 
