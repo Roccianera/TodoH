@@ -4,8 +4,10 @@ import axios from 'axios';
 import { isAuthenticated, login } from '../service/authService';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import useSignIn from 'react-auth-kit/hooks/useSignIn';
 
 function LoginForm() {
+  /*
   const navigate = useNavigate(); // Call useNavigate at the top level
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -36,13 +38,86 @@ function LoginForm() {
     }
   };
 
+  */
+
+  const navigate = useNavigate(); // Call useNavigate at the top level
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const signIn = useSignIn();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    console.log('username', username);
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/api/auth/login',
+        {
+          username,
+          password,
+        }
+      );
+
+      console.log(response);
+      const sign = signIn({
+        auth: {
+          token: response.data.token,
+          type:"Bearer",
+        },
+        expiresIn: 36000,
+        tokenType: 'Bearer',
+        userState: { username: username },
+      });
+      console.log('bug'); // This should now be printed
+      console.log(sign);
+
+      if (sign) {
+        console.log('Sign in successful');
+        navigate('/dashboard'); // Navigate to dashboard after successful login
+      } else {
+        console.log('Sign in failed');
+        setError('Authentication failed');
+      }
+
+      setLoading(false); // Reset loading state on success
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('Bad Credentials');
+      setLoading(false);
+    }
+  };
+
   return (
     <StyledWrapper>
       <form className="form">
-        <div className="title">Welcome,<br /><span>sign up to continue</span></div>
-        <input type="text" placeholder="username" name="username" className="input" onChange={(e) => setUsername(e.target.value)} />
-        <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => setPassword(e.target.value)} />
-        <button className="button-confirm" onClick={handleLogin}>Let`s go →</button>
+        <div className="title">
+          Welcome,
+          <br />
+          <span>sign up to continue</span>
+        </div>
+        <input
+          type="text"
+          placeholder="username"
+          name="username"
+          className="input"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          className="input"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button className="button-confirm" onClick={handleLogin}>
+          Let`s go →
+        </button>
       </form>
     </StyledWrapper>
   );
@@ -130,7 +205,8 @@ const StyledWrapper = styled.div`
     fill: var(--main-color);
   }
 
-  .button-log:active, .button-confirm:active {
+  .button-log:active,
+  .button-confirm:active {
     box-shadow: 0px 0px var(--main-color);
     transform: translate(3px, 3px);
   }
@@ -147,6 +223,7 @@ const StyledWrapper = styled.div`
     font-weight: 600;
     color: var(--font-color);
     cursor: pointer;
-  }`;
+  }
+`;
 
 export default LoginForm;

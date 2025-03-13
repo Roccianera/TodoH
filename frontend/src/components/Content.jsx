@@ -32,7 +32,6 @@ function Content() {
   return (
 
 <>
-      <NavBar/>
 
       <StyledBox>
 

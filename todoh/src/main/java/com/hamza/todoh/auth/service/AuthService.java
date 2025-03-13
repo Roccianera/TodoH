@@ -2,6 +2,7 @@ package com.hamza.todoh.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,13 +44,24 @@ public class AuthService {
      */
     public AuthResponse login(LoginRequest request) {
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserDetails userDetails =(UserDetails) authentication.getPrincipal();
-        String jwt = jwtTokenProvider.generateToken(userDetails);
-        return new AuthResponse(jwt, request.getUsername());        
+            UserDetails userDetails =(UserDetails) authentication.getPrincipal();
+            String jwt = jwtTokenProvider.generateToken(userDetails);
+            return new AuthResponse(jwt, request.getUsername());      
+
+
+        } catch (org.springframework.security.authentication.BadCredentialsException e) {
+            throw new BadCredentialsException("Invalid username or password", e);
+        } catch (org.springframework.security.core.AuthenticationException e) {
+            throw new RuntimeException("Authentication failed: " + e.getMessage(), e);
+        }
+
+       
 
     }
 
