@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import LeftBar from './LeftBar'
 import RightBar from './RightBar'
 import TaskList from './TaskList'
-import NavBar from './NavBar'
+import NavBar from '../Layout/NavBar'
 
 
 
