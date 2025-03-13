@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { isAuthenticated, login } from '../service/authService';
+import { login } from '../service/authService';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
@@ -56,34 +56,18 @@ function LoginForm() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        'http://localhost:8080/api/auth/login',
-        {
-          username,
-          password,
-        }
-      );
-
-      console.log(response);
+      const response = await login(username, password);
       const sign = signIn({
         auth: {
           token: response.data.token,
-          type:"Bearer",
+          type: 'Bearer',
         },
         expiresIn: 36000,
         tokenType: 'Bearer',
         userState: { username: username },
       });
-      console.log('bug'); // This should now be printed
-      console.log(sign);
-
-      if (sign) {
-        console.log('Sign in successful');
-        navigate('/dashboard'); // Navigate to dashboard after successful login
-      } else {
-        console.log('Sign in failed');
-        setError('Authentication failed');
-      }
+      console.log('Sign in successful');
+      navigate('/dashboard'); // Navigate to dashboard after successful login
 
       setLoading(false); // Reset loading state on success
     } catch (err) {

@@ -1,8 +1,10 @@
-import { Button } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import {useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
+
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
+import { getUser } from '../service/authService';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -16,15 +18,20 @@ function HomePage() {
     navigate("/login");
   }
 
+
+
+
   
   return (
     <>
-      <div>HomePage</div>
-      <Button onClick={() => navigate("/login")}>Login</Button>
+      <Typography variant="h4">Home Page</Typography>
+      <Box sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh"}}>
+      <Button  onClick={() => navigate("/login")}>Login</Button>
       <Button onClick={() => navigate("/register")}>Register</Button>
       <Button onClick={() => navigate("/dashboard")}>Dashboard</Button>
       <Button onClick={()=>handleSignOut()}>LOGOUT</Button>
-
+      <Button onClick={()=>getUser()}>Get User</Button>
+      </Box>
     
 
    

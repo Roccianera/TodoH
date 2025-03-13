@@ -17,17 +17,14 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser()
     {
-       try{
+       
            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
            String username = authentication.getName();
 
            return  ResponseEntity.ok("User Authenticated " +username);
 
-       } catch (Exception e) {
-           return ResponseEntity.badRequest().body("User not authenticated " +e.getMessage());
-       }
-
+   
 
 
     }
