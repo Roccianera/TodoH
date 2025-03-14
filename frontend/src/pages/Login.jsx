@@ -1,6 +1,10 @@
 import LoginForm from "../components/LoginForm";
 import { Box, Typography } from '@mui/material';
+import { use, useEffect } from "react";
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { isAuthenticated } from 'react-auth-kit/utils/utils';
+import NavBar from "../Layout/NavBar";
 
 
 
@@ -22,10 +26,20 @@ const StyledBox = styled(Box)({
 
 
 function Login() {
+
+
+
+    const navigate =useNavigate();
+
+
+
+
+
     return (
 
         
-    
+        <>
+        <NavBar></NavBar>
         
         <StyledBox>
             
@@ -33,6 +47,9 @@ function Login() {
 
                 <LoginForm ></LoginForm>
         </StyledBox>
+        
+        </>
+        
 
     );
     

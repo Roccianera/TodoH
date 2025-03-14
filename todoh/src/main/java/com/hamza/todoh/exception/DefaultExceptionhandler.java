@@ -41,6 +41,8 @@ public class DefaultExceptionhandler {
 
         );
 
+        System.out.println(e.getMessage());
+
 
         return  new ResponseEntity<>(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
 

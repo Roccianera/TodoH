@@ -34,18 +34,18 @@ function App() {
             <Route
               path="/"
               element={
-                <RequireAuth fallbackPath={'/login'}>
+                <RequireAuth fallbackPath={"/login"}>
                 
                   <HomePage />
                 </RequireAuth>
               }
             />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
             <Route
               path="/dashboard"
               element={
-                <RequireAuth fallbackPath={'/login'}>
+                <RequireAuth fallbackPath={"/login"}>
                 
                   <Dashboard></Dashboard>
                 </RequireAuth>
