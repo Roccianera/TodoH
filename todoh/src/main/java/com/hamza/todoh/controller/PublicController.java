@@ -21,7 +21,7 @@ public class PublicController {
     @GetMapping("/task/response")
     public ResponseEntity<?> taskResponse() {
 
-        TaskResponseDto task = new TaskResponseDto(1, "title", "description", null, null);
+        TaskResponseDto task = new TaskResponseDto(1, "title", "description", null, null,null);
        
         return ResponseEntity.ok(task);
     }

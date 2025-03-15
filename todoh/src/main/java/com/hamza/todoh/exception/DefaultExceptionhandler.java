@@ -1,6 +1,7 @@
 package com.hamza.todoh.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,8 +12,37 @@ import java.time.LocalDateTime;
 
 import javax.security.auth.login.CredentialException;
 
+
+
+
 @ControllerAdvice
 public class DefaultExceptionhandler {
+
+
+
+
+
+
+
+
+        @ExceptionHandler(ValidationException.class)
+        public ResponseEntity<ApiError> handleValidationException(ValidationException e , HttpServletRequest request){
+
+            ApiError apiError = new ApiError(
+                    request.getRequestURI(),
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST.value(),
+                    LocalDateTime.now()
+
+            );
+
+            return  new ResponseEntity<>(apiError,HttpStatus.BAD_REQUEST);
+        }
+
+
+
+
+
 
 
         @ExceptionHandler(BadCredentialsException.class)
@@ -41,7 +71,8 @@ public class DefaultExceptionhandler {
 
         );
 
-        System.out.println(e.getMessage());
+        System.out.println("Error Message ["+e.getMessage()+"]");
+       // e.printStackTrace();
 
 
         return  new ResponseEntity<>(apiError,HttpStatus.INTERNAL_SERVER_ERROR);

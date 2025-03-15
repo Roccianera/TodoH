@@ -2,7 +2,11 @@ package com.hamza.todoh.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.hamza.todoh.dto.TaskMapperDto;
+import com.hamza.todoh.model.Tag;
 import com.hamza.todoh.model.User;
 import com.hamza.todoh.repository.UserRepository;
 import org.springframework.security.core.Authentication;
@@ -24,11 +28,11 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-   //TODO private final TagRepository tagRepository;
-
+    private final TagService tagService;
     private final TaskMapperDto taskMapperDto;
 
     private final UserRepository userRepository;
+
 
 
     
@@ -78,7 +82,14 @@ public class TaskService {
 
         var task = taskMapperDto.mapToTask(dto);
 
+       if (dto.tags()!=null){
+            var tagsNames = dto.tags();
 
+
+            Set<Tag> tags = tagsNames.stream().map(tagService::findOrAddTag).collect(Collectors.toSet());
+
+            task.setTags(tags);
+        }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -86,7 +97,7 @@ public class TaskService {
         task.setUser(user.get());
 
         var savedTask= taskRepository.save(task);
-        return taskMapperDto.mapToTaskResponseDto(savedTask); //TODO cambiare la funzione
+        return taskMapperDto.mapToTaskResponseDto(savedTask);
     }
 
 
@@ -101,8 +112,7 @@ public class TaskService {
         Optional<User> user = Optional.ofNullable(userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found ")));
 
 
-
-        return taskRepository.findByUser(user.get()).stream().map(taskMapperDto::mapToTaskResponseDto).toList();
+        return taskRepository.findByUser_Username(user.get().getUsername()).stream().map(taskMapperDto::mapToTaskResponseDto).toList();
     }
 
 
@@ -129,7 +139,13 @@ public class TaskService {
             task.setDeadlineTime(dto.deadlineTime());
         }
 
-        //TODO: Add tags
+        if(dto.tags()!=null){
+
+            var tagsNames=dto.tags();
+            Set<Tag> tags = tagsNames.stream().map(tagService::findOrAddTag).collect(Collectors.toSet());
+
+            task.setTags(tags);
+        }
     
 
         var savetask = taskRepository.save(task);

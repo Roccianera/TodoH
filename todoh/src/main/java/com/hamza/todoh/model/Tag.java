@@ -1,5 +1,6 @@
 package com.hamza.todoh.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -25,8 +26,8 @@ public class Tag {
     @Column(unique = true, nullable = false)
     private String name;
     
-   // @ManyToMany(mappedBy = "tags")
-    //private Set<Task> tasks;
+   @ManyToMany
+    private Set<Task> tasks=new HashSet<>();
 
 
 }

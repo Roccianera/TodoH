@@ -10,7 +10,6 @@ import com.hamza.todoh.model.User;
 public interface TaskRepository  extends JpaRepository<Task,Integer> {
 
 
-    public List<Task>  findByUser(User user);
-
-
+   public List<Task>  findByUser(User user);
+   public List<Task> findByUser_Username(String username);
 }

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public record TaskRequestDto(
     @NotBlank(message = "Title is required")
@@ -13,8 +14,9 @@ public record TaskRequestDto(
     String title,
     @Size(max = 255, message = "Description must be less than 255 characters")
     String description,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    LocalDateTime deadlineTime
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    LocalDateTime deadlineTime,
+    Set<String>tags
 ) {
 
 }

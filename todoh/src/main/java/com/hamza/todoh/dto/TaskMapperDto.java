@@ -1,14 +1,13 @@
-package com.hamza.todoh.service;
+package com.hamza.todoh.dto;
 
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
-import com.hamza.todoh.dto.TaskRequestDto;
-import com.hamza.todoh.dto.TaskResponseDto;
 import com.hamza.todoh.model.Task;
 
 @Service
 public class TaskMapperDto {
+
 
 
 
@@ -37,7 +36,9 @@ public class TaskMapperDto {
             task.getTitle(),
             task.getDescription(),
             task.getDeadlineTime(),
-            task.getCreationTime()
+            task.getCreationTime(),
+             task.getTagsFormatted()
+
         );
 
 

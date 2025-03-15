@@ -1,20 +1,15 @@
 package com.hamza.todoh.model;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 
 @Entity
 @Table(name = "_tasks")
@@ -42,9 +37,23 @@ public class Task {
     
     
     
-    //@ManyToMany(mappedBy = "tasks")
-    
-   // private Set<Tag> tags;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "task_tags",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
+
+    public Set<String> getTagsFormatted(){
+
+        Set<String> fTags= new HashSet<>();
+
+        tags.forEach(tag -> {fTags.add(tag.getName());});
+
+        return fTags;
+
+    }
+
 
 
 
